@@ -1,20 +1,36 @@
 ﻿using OnlineShopCMSMySql.DAL;
+using System;
 
 namespace OnlineShopCMSMySql
 {
     class Program
     {
         static void Main(string[] args)
-        {
-            Login login = new Login();
-            login.GetAccess();
+        {  try
+            {
+                Login login = new Login();
+                login.GetAccess();
+            }
+            catch (Exception loginProblem)
+            {
+                System.Console.WriteLine(loginProblem.Message);
+                Console.WriteLine(loginProblem.StackTrace);
+            }
 
             IProductRepository product = new ProductRespository();
             {
-                bool showMenu = true;
-                while (showMenu)
+                try
                 {
-                    showMenu = ProductController.MainMenu(product);
+                    bool showMenu = true;
+                    while (showMenu)
+                    {
+                        showMenu = ProductController.MainMenu(product);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.WriteLine(e.StackTrace);
                 }
             }
 
